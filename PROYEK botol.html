@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi Sistem Jaringan XII TKJ D</title>
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            background: white;
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8)), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .profile-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            padding: 1.5rem;
+        }
+
+        .profile-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .profile-info p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .profile-info i {
+            color: var(--secondary);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Materi Section */
+        .materi-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .materi-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .materi-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .materi-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .materi-content {
+            padding: 1.5rem;
+        }
+
+        .materi-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .materi-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+            }
+
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .profile-container, .materi-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h1>XII TKJ D</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-tab="home">Beranda</a></li>
+                        <li><a href="#" class="nav-link" data-tab="profile">Profil</a></li>
+                        <li><a href="#" class="nav-link" data-tab="control-panel">Control Panel</a></li>
+                        <li><a href="#" class="nav-link" data-tab="pengantar-hosting">Pengantar Hosting</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Administrasi Sistem Jaringan</h2>
+            <p>Website pembelajaran untuk siswa kelas XII TKJ D tentang administrasi sistem jaringan, control panel hosting, dan pengantar hosting.</p>
+            <a href="#" class="btn" data-tab="profile">Lihat Profil SAYA</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <h2 class="section-title">Selamat Datang di Website XII TKJ D</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Website ini berisi informasi tentang siswa kelas XII TKJ D serta materi pembelajaran tentang administrasi sistem jaringan.</p>
+            
+            <div class="materi-container">
+                <div class="materi-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jaringan Komputer" class="materi-img">
+                    <div class="materi-content">
+                        <h3>Administrasi Sistem Jaringan</h3>
+                        <p>Mempelajari tentang pengelolaan dan pemeliharaan sistem jaringan komputer.</p>
+                        <a href="#" class="btn" data-tab="profile">Lihat Profil</a>
+                    </div>
+                </div>
+                
+                <div class="materi-card">
+                    <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Control Panel" class="materi-img">
+                    <div class="materi-content">
+                        <h3>Control Panel Hosting</h3>
+                        <p>Memahami cara mengelola website melalui control panel hosting.</p>
+                        <a href="#" class="btn" data-tab="control-panel">Pelajari</a>
+                    </div>
+                </div>
+                
+                <div class="materi-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hosting" class="materi-img">
+                    <div class="materi-content">
+                        <h3>Pengantar Hosting</h3>
+                        <p>Mengenal konsep dasar hosting dan jenis-jenis layanan hosting.</p>
+                        <a href="#" class="btn" data-tab="pengantar-hosting">Pelajari</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile" class="tab-content">
+            <h2 class="section-title">Profil Siswa XII TKJ D</h2>
+            <div class="profile-container">
+                <div class="profile-card">
+                    <img src="monitor.jpeg" width="1200" height="500">
+                        <h3>DHIMAS ALFAREZEL</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Jl. Jambu 02.rt 11,rw 02,Cipedak jagakarsaJakarta</p>
+                        <p><i class="fas fa-graduation-cap"></i> Cita-cita: JADI PRESIDEN 2030</p>
+                        <p><i class="fas fa-laptop-code"></i> Hobi: MAKAN,TIDUR,LANJUT NGEGAME</p>
+                        <p><i class="fas fa-envelope"></i> Email: zelhuan123@gmail.com</p>
+                    </div>
+                </div>
+                
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel Tab -->
+        <div id="control-panel" class="tab-content">
+            <h2 class="section-title">Materi Control Panel Hosting</h2>
+            
+            <div class="materi-card" style="margin-bottom: 2rem;">
+                <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Control Panel" class="materi-img">
+                <div class="materi-content">
+                    <h3>Apa itu Control Panel Hosting?</h3>
+                    <p>Control Panel Hosting adalah antarmuka grafis yang memungkinkan pengguna untuk mengelola berbagai aspek website dan akun hosting mereka tanpa perlu pengetahuan teknis yang mendalam tentang server.</p>
+                    <p>Dengan control panel, Anda dapat:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Mengelola domain dan subdomain</li>
+                        <li>Membuat dan mengelola akun email</li>
+                        <li>Mengelola database MySQL</li>
+                        <li>Mengunggah file website</li>
+                        <li>Menginstal aplikasi dengan satu klik</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="materi-card" style="margin-bottom: 2rem;">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="cPanel" class="materi-img">
+                <div class="materi-content">
+                    <h3>Jenis-jenis Control Panel Hosting</h3>
+                    <p>Beberapa control panel hosting yang populer:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li><strong>cPanel</strong> - Control panel paling populer untuk hosting Linux</li>
+                        <li><strong>Plesk</strong> - Alternatif untuk Windows dan Linux hosting</li>
+                        <li><strong>DirectAdmin</strong> - Alternatif yang lebih ringan dari cPanel</li>
+                        <li><strong>Webmin</strong> - Control panel open source untuk administrasi sistem</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pengantar Hosting Tab -->
+        <div id="pengantar-hosting" class="tab-content">
+            <h2 class="section-title">Materi Pengantar Hosting</h2>
+            
+            <div class="materi-card" style="margin-bottom: 2rem;">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hosting" class="materi-img">
+                <div class="materi-content">
+                    <h3>Pengertian Hosting</h3>
+                    <p>Hosting (web hosting) adalah layanan yang memungkinkan individu dan organisasi untuk membuat website mereka dapat diakses melalui internet. Penyedia hosting menyediakan server tempat file website disimpan dan dikelola.</p>
+                    <p>Ketika seseorang mengetik alamat website Anda di browser, mereka terhubung ke server hosting Anda, dan halaman website Anda ditampilkan di browser mereka.</p>
+                </div>
+            </div>
+            
+            <div class="materi-card" style="margin-bottom: 2rem;">
+                <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jenis Hosting" class="materi-img">
+                <div class="materi-content">
+                    <h3>Jenis-jenis Layanan Hosting</h3>
+                    <p>Berikut adalah beberapa jenis layanan hosting yang umum:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li><strong>Shared Hosting</strong> - Beberapa website berbagi sumber daya server yang sama</li>
+                        <li><strong>VPS Hosting</strong> - Server virtual dengan sumber daya yang dialokasikan khusus</li>
+                        <li><strong>Dedicated Hosting</strong> - Server fisik yang sepenuhnya disewa untuk satu klien</li>
+                        <li><strong>Cloud Hosting</strong> - Hosting yang menggunakan beberapa server untuk membentuk cloud</li>
+                        <li><strong>WordPress Hosting</strong> - Hosting yang dioptimalkan khusus untuk WordPress</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Administrasi Sistem Jaringan XII TKJ D</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p class="copyright">&copy; 2023 XII TKJ D. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and tabs
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    tabContents.forEach(item => item.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding tab content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Handle button clicks that change tabs
+            const buttons = document.querySelectorAll('.btn[data-tab]');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all links and tabs
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    tabContents.forEach(item => item.classList.remove('active'));
+                    
+                    // Add active class to corresponding link and tab
+                    document.querySelector(`.nav-link[data-tab="${tabId}"]`).classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+    
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
